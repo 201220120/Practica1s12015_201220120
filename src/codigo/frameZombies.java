@@ -27,7 +27,7 @@ import javax.swing.border.BevelBorder;
  *
  * @author Braian
  */
-public class framePlantas extends JFrame implements ActionListener {
+public class frameZombies extends JFrame implements ActionListener {
 
     JPanel Contab1 = new JPanel();
     JButton prueba = new JButton();
@@ -35,9 +35,9 @@ public class framePlantas extends JFrame implements ActionListener {
     String nick;
     int plantas;
     nodo raiz;
-    nodoPlanta catalogo;
+    nodoZombie catalogo;
 
-    public framePlantas(String nombre, int plantas, nodo nodoUsuarios, nodoPlanta catalogo) {
+    public frameZombies(String nombre, int plantas, nodo nodoUsuarios, nodoZombie catalogo) {
         if (this.isEnabled()) {
             this.dispose();
 
@@ -48,7 +48,7 @@ public class framePlantas extends JFrame implements ActionListener {
         this.plantas = plantas;
 //ImagePanel panel = new ImagePanel(new ImageIcon("/imagenes/creacionjugador.png").getImage());
         setSize(800, 600);
-        setTitle("Catalogo de Plantas");
+        setTitle("Catalogo de Zombies");
         setResizable(false);
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,7 +62,7 @@ public class framePlantas extends JFrame implements ActionListener {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {
 
-        creacionPlantas p = new creacionPlantas(nick, plantas, raiz, catalogo, this);
+        creacionZombies p = new creacionZombies(nick, plantas, raiz, catalogo, this);
         p.setjFramePadre(this);
 
         this.add(p, BorderLayout.CENTER);
@@ -74,7 +74,7 @@ public class framePlantas extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        framePlantas frame = new framePlantas("BRAIAN", 10, null, null);
+        frameZombies frame = new frameZombies("BRAIAN", 10, null, null);
         frame.setVisible(true);
     }
 

@@ -24,6 +24,7 @@ setSize(700,400);
 setTitle("Menu Usuario");
 formWindowOpened(null);
 initComponents();
+setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 } 
     public void initComponents()

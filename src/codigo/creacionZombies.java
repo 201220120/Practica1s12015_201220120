@@ -30,7 +30,7 @@ import javax.swing.border.TitledBorder;
  *
  * @author Braian
  */
-public class creacionPlantas extends javax.swing.JPanel implements ActionListener {
+public class creacionZombies extends javax.swing.JPanel implements ActionListener {
 
     private JFrame jFramePadre;
     JButton continuarabtn;
@@ -46,10 +46,10 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
     String nombreJ;
     int plantas;
     nodo raiz;
-    nodoPlanta catalogo;
-    framePlantas obj;
+    nodoZombie catalogo;
+    frameZombies obj;
 
-    public creacionPlantas(String nick, int plantas, nodo nodoUsuarios, nodoPlanta catalogo, framePlantas aux) {
+    public creacionZombies(String nick, int plantas, nodo nodoUsuarios, nodoZombie catalogo, frameZombies aux) {
         obj = aux;
         this.raiz = nodoUsuarios;
         this.catalogo = catalogo;
@@ -94,11 +94,9 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
         continuarabtn.setContentAreaFilled(false);
         continuarabtn.setBorderPainted(false);
         continuarabtn.setBounds(662, 532, 137, 33);
-        continuarabtn.addActionListener(this);
     }
     int totalPlanta = 0;
-    funcionePlanta fun = new funcionePlanta();
-    funciones fun2 = new funciones();
+    funcioneZombie fun = new funcioneZombie();
 
     boolean p1, p2, p3, p4;
     static int auxiliar;
@@ -107,25 +105,25 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
     public void pintarCatalogo() {
         totalPlanta = fun.getTamaño();
         // System.out.println("ESTIMADO DE CONTADOR " + totalPlanta);
-        nodoPlanta aux = catalogo;
+        nodoZombie aux = catalogo;
         for (int i = 0; i < totalPlanta; i++) {
 
             TableroBoton.getButton(i, 1).setText(aux.Nombre);
             TableroBoton.getButton(i, 2).setText(String.valueOf(aux.puntos));
             TableroBoton.getButton(i, 3).setText(String.valueOf(aux.ataque));
 
-            if (TableroBoton.getButton(i, 1).getText().equals("DESTROYER")) {
-                TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico1.png")));
+            if (TableroBoton.getButton(i, 1).getText().equals("PATIÑO")) {
+                TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/zo2.png")));
                 p2 = true;
-            } else if (TableroBoton.getButton(i, 1).getText().equals("BUMERAN")) {
-                TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico3.png")));
-                p4 = true;
-            } else if (TableroBoton.getButton(i, 1).getText().equals("LA MOLE")) {
-                TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico2.png")));
-                p1 = true;
-            } else if (TableroBoton.getButton(i, 1).getText().equals("DARTH VADER")) {
-                TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico4.png")));
+            } else if (TableroBoton.getButton(i, 1).getText().equals("SEPHIROT")) {
+                TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/zo3.png")));
                 p3 = true;
+            } else if (TableroBoton.getButton(i, 1).getText().equals("KRUEGER")) {
+                TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/zo1.png")));
+                p1 = true;
+            } else if (TableroBoton.getButton(i, 1).getText().equals("SEVERUS")) {
+                TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/zo4.png")));
+                p4 = true;
             }
 
             Font font = TableroBoton.getButton(i, 4).getFont();
@@ -141,7 +139,7 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
                 public void mouseClicked(MouseEvent e) {
                     String nom = TableroBoton.getButton(aux, 1).getText();
 
-                    catalogoPlantas menu = new catalogoPlantas(nombreJ, plantas, p1, p2, p3, p4, nom);
+                    catalogoZombies menu = new catalogoZombies(nombreJ, plantas, p1, p2, p3, p4, nom);
                     menu.setVisible(true);
 
                     obj.setVisible(false);
@@ -160,9 +158,11 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
                     System.out.println(TableroBoton.getButton(aux, 1).getText());
                     String nom = TableroBoton.getButton(aux, 1).getText();
                     System.out.println(nom);
-
-                    fun.eliminar(nom, nombreJ, plantas, raiz);
+                    
+                    fun.eliminar(nom,nombreJ,plantas,raiz);
                     obj.dispose();
+                    
+                    
 
                 }
             });
@@ -193,7 +193,7 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
     @Override
     public void paint(Graphics g) {
         Dimension tamanio = getSize();
-        ImageIcon imagenFondo = new ImageIcon(getClass().getResource("/imagenes/creacionjugador2.png"));
+        ImageIcon imagenFondo = new ImageIcon(getClass().getResource("/imagenes/tab2.png"));
         g.drawImage(imagenFondo.getImage(), 0, 0, tamanio.width, tamanio.height, null);
         setOpaque(false);
         super.paintComponent(g);
@@ -219,27 +219,10 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == agregarPlanta) {
-            catalogoPlantas menu = new catalogoPlantas(nombreJ, plantas, p1, p2, p3, p4, null);
-            framePlantas frame = new framePlantas(nombreJ, plantas, raiz, catalogo);
+            catalogoZombies menu = new catalogoZombies(nombreJ, plantas, p1, p2, p3, p4, null);
+            frameZombies frame = new frameZombies(nombreJ, plantas, raiz, catalogo);
             menu.setVisible(true);
             obj.setVisible(false);
-
-        }
-
-        if (e.getSource() == continuarabtn) {
-            if ((p1 || p2 || p3 || p4) == true) {
-                
-                nodo nodoUsuarios = fun2.getRaiz();
-                nodo aux2 = fun2.buscar("Zombie");
-                String nick2 = aux2.Nombre;
-                int cantidad = aux2.cantidad;
-                frameZombies frame = new frameZombies(nick2, cantidad, nodoUsuarios, null);
-                frame.setVisible(true);
-                obj.setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(null, "Debe ingresar un tipo de planta");
-
-            }
 
         }
 

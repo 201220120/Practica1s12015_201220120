@@ -49,7 +49,7 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
     usuariosMenu obj;
 
     public panelUsuario(usuariosMenu aux) {
-obj = aux;
+        obj = aux;
         initComponents();
     }
 
@@ -57,12 +57,12 @@ obj = aux;
         plantasbtn = new JButton();
         plantasbtn.addActionListener(this);
         plantasbtn.setText("Jugador Plantas");
-        plantasbtn.setBounds(50, 180, 200, 25);
+        plantasbtn.setBounds(50, 185, 200, 25);
 
         zombiesbtn = new JButton();
         zombiesbtn.addActionListener(this);
         zombiesbtn.setText("Jugador Zombies");
-        zombiesbtn.setBounds(50, 220, 200, 25);
+        zombiesbtn.setBounds(50, 235, 200, 25);
         zombiesbtn.setEnabled(false);
 
         iniciarbtn = new JButton();
@@ -74,7 +74,7 @@ obj = aux;
         resetbtn = new JButton();
         resetbtn.addActionListener(this);
         resetbtn.setText("Eliminar Datos");
-        resetbtn.setBounds(50, 300, 200, 25);
+        resetbtn.setBounds(50, 285, 200, 25);
         resetbtn.setEnabled(false);
         campo = new JPanel();
 
@@ -149,7 +149,7 @@ obj = aux;
 
         this.jFramePadre.add(plantasbtn);
         this.jFramePadre.add(zombiesbtn);
-        this.jFramePadre.add(iniciarbtn);
+        //this.jFramePadre.add(iniciarbtn);
         this.jFramePadre.add(resetbtn);
         this.jFramePadre.add(campo);
         this.jFramePadre.add(error);
@@ -234,6 +234,15 @@ obj = aux;
                     campo.setVisible(false);
                     zombiesbtn.setEnabled(false);
                     iniciarbtn.setEnabled(true);
+
+                    //iniciar juego
+                    nodo nodoUsuarios = fun.getRaiz();
+                    nodo aux2 = fun.buscar("Planta");
+                    String nick2 = aux2.Nombre;
+                    int cantidad = aux2.cantidad;
+                    framePlantas frame = new framePlantas(nick2, cantidad, nodoUsuarios, null);
+                    obj.setVisible(false);
+                    frame.setVisible(true);
                 } else {
                     error.setVisible(true);
                     error.setText("Error en llenar los campos");
@@ -245,16 +254,7 @@ obj = aux;
             reiniciarDatos();
         }
 
-        if (e.getSource() == iniciarbtn) {
-            nodo nodoUsuarios = fun.getRaiz();
-            nodo aux = fun.buscar("Planta");
-            String nick = aux.Nombre;
-            int cantidad = aux.cantidad;
-            framePlantas frame = new framePlantas(nick, cantidad,nodoUsuarios,null);
-            obj.setVisible(false);
-            frame.setVisible(true);
-        }
-
+    
         if (e.getSource() == resetbtn) {
             reiniciarDatos();
             zombiesbtn.setEnabled(false);
