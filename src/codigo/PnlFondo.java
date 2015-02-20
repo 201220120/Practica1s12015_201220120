@@ -114,11 +114,6 @@ public class PnlFondo extends javax.swing.JPanel implements ActionListener {
     if(e.getSource()==iniciar){
         usuariosMenu menu = new usuariosMenu();
 
-
-        
-
-        //this.pack();
-        
         menu.setVisible(true);
         
         obj.setVisible(false);

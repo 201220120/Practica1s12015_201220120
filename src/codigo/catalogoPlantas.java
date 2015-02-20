@@ -19,12 +19,44 @@ public class catalogoPlantas extends javax.swing.JFrame {
      */
     String nombre;
     int cantidad;
+    boolean p1, p2, p3, p4;
+    String nomAux = null;
 
-    public catalogoPlantas(String nombre, int cantidad) {
+    public catalogoPlantas(String nombre, int cantidad, boolean p1, boolean p2, boolean p3, boolean p4, String nomAux) {
+        this.p1 = p1;
+        this.p2 = p2;
+        this.p3 = p3;
+        this.p4 = p4;
+        this.nomAux = nomAux;
         this.nombre = nombre;
         this.cantidad = cantidad;
         initComponents();
+        desactivarPlanta();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    }
+
+    public void desactivarPlanta() {
+        error.setVisible(false);
+        if (p1 != false) {
+            btn1.setEnabled(false);
+
+        }
+        if (p2 != false) {
+            btn2.setEnabled(false);
+
+        }
+        if (p3 != false) {
+            btn3.setEnabled(false);
+
+        }
+        if (p4 != false) {
+            btn4.setEnabled(false);
+
+        }
+        if ((p1 & p2 & p3 & p4) == true) {
+            error.setVisible(true);
+        }
+
     }
 
     /**
@@ -41,6 +73,7 @@ public class catalogoPlantas extends javax.swing.JFrame {
         btn3 = new javax.swing.JButton();
         btn4 = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
+        error = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +112,9 @@ public class catalogoPlantas extends javax.swing.JFrame {
             }
         });
 
+        error.setForeground(new java.awt.Color(255, 0, 0));
+        error.setText("Todas las Plantas fueron agregadas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,17 +122,20 @@ public class catalogoPlantas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnsalir)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                            .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnsalir, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(error, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,27 +149,34 @@ public class catalogoPlantas extends javax.swing.JFrame {
                     .addComponent(btn4)
                     .addComponent(btn3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(error)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnsalir)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-         nodoPlanta aux = new nodoPlanta();
-        aux.Nombre = "LA MOLE";
-        aux.ataque = "Golpe";
-        aux.puntos = 7;
+        if (nomAux != null) {
 
-        fun.agregarLista(aux);
-       
+            fun.modificar(nomAux, "LA MOLE", "Golpe", 7);
 
+        } else {
+
+            nodoPlanta aux = new nodoPlanta();
+            aux.Nombre = "LA MOLE";
+            aux.ataque = "Golpe";
+            aux.puntos = 7;
+
+            fun.agregarLista(aux);
+        }
         nodoPlanta nodoCatalogo = fun.getRaiz();
         nodo nodoUsuarios = fun2.getRaiz();
 
         framePlantas frame = new framePlantas(nombre, cantidad, nodoUsuarios, nodoCatalogo);
-      
+
         frame.setVisible(true);
         this.setVisible(false);
 
@@ -140,19 +186,23 @@ public class catalogoPlantas extends javax.swing.JFrame {
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
 
         //estructura de los datos creados
-        nodoPlanta aux = new nodoPlanta();
-        aux.Nombre = "DESTROYER";
-        aux.ataque = "Disparo";
-        aux.puntos = 6;
+        if (nomAux != null) {
 
-        fun.agregarLista(aux);
-       
+            fun.modificar(nomAux, "DESTROYER", "Disparo", 6);
 
+        } else {
+            nodoPlanta aux = new nodoPlanta();
+            aux.Nombre = "DESTROYER";
+            aux.ataque = "Disparo";
+            aux.puntos = 6;
+
+            fun.agregarLista(aux);
+        }
         nodoPlanta nodoCatalogo = fun.getRaiz();
         nodo nodoUsuarios = fun2.getRaiz();
 
         framePlantas frame = new framePlantas(nombre, cantidad, nodoUsuarios, nodoCatalogo);
-      
+
         frame.setVisible(true);
         this.setVisible(false);
 
@@ -160,42 +210,59 @@ public class catalogoPlantas extends javax.swing.JFrame {
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
-nodoPlanta aux = new nodoPlanta();
-        aux.Nombre = "DARTH VADER";
-        aux.ataque = "Salpicadura";
-        aux.puntos = 5;
 
-        fun.agregarLista(aux);
-       
+        if (nomAux != null) {
 
+            fun.modificar(nomAux, "DARTH VADER", "Salpicadura", 5);
+
+        } else {
+            nodoPlanta aux = new nodoPlanta();
+            aux.Nombre = "DARTH VADER";
+            aux.ataque = "Salpicadura";
+            aux.puntos = 5;
+
+            fun.agregarLista(aux);
+        }
         nodoPlanta nodoCatalogo = fun.getRaiz();
         nodo nodoUsuarios = fun2.getRaiz();
 
         framePlantas frame = new framePlantas(nombre, cantidad, nodoUsuarios, nodoCatalogo);
-      
+
         frame.setVisible(true);
         this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_btn3ActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
-nodoPlanta aux = new nodoPlanta();
-        aux.Nombre = "BUMERAN";
-        aux.ataque = "Aire";
-        aux.puntos = 5;
+        if (nomAux != null) {
 
-        fun.agregarLista(aux);
-       
+            fun.modificar(nomAux, "BUMERAN", "Aire", 5);
+
+        } else {
+
+            nodoPlanta aux = new nodoPlanta();
+            aux.Nombre = "BUMERAN";
+            aux.ataque = "Aire";
+            aux.puntos = 5;
+
+            fun.agregarLista(aux);
+
+        }
 
         nodoPlanta nodoCatalogo = fun.getRaiz();
         nodo nodoUsuarios = fun2.getRaiz();
-
         framePlantas frame = new framePlantas(nombre, cantidad, nodoUsuarios, nodoCatalogo);
-      
+
         frame.setVisible(true);
         this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_btn4ActionPerformed
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
+
+        nodoPlanta nodoCatalogo = fun.getRaiz();
+        nodo nodoUsuarios = fun2.getRaiz();
+        framePlantas frame = new framePlantas(nombre, cantidad, nodoUsuarios, nodoCatalogo);
+
+        frame.setVisible(true);
         dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnsalirActionPerformed
@@ -231,7 +298,7 @@ nodoPlanta aux = new nodoPlanta();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new catalogoPlantas("", 0).setVisible(true);
+                new catalogoPlantas("", 0, false, false, false, false, "").setVisible(true);
             }
         });
     }
@@ -242,5 +309,6 @@ nodoPlanta aux = new nodoPlanta();
     private javax.swing.JButton btn3;
     private javax.swing.JButton btn4;
     private javax.swing.JButton btnsalir;
+    private javax.swing.JLabel error;
     // End of variables declaration//GEN-END:variables
 }

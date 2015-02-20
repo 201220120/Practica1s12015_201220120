@@ -62,20 +62,15 @@ public class framePlantas extends JFrame implements ActionListener {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {
 
-        creacionPlantas p = new creacionPlantas(nick, plantas, raiz,catalogo,this);
+        creacionPlantas p = new creacionPlantas(nick, plantas, raiz, catalogo, this);
         p.setjFramePadre(this);
 
         this.add(p, BorderLayout.CENTER);
         p.repaint();
     }
 
-    public void ocultarVentana() {
-        this.dispose();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public static void main(String[] args) {

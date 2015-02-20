@@ -7,11 +7,18 @@ package codigo;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.font.TextAttribute;
 import java.util.ArrayList;
+import java.util.Map;
 import javax.swing.*;
 
 import javax.swing.border.BevelBorder;
@@ -91,32 +98,74 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
     int totalPlanta = 0;
     funcionePlanta fun = new funcionePlanta();
 
+    boolean p1, p2, p3, p4;
+    static int auxiliar;
+    static String nomAux = null;
+
     public void pintarCatalogo() {
         totalPlanta = fun.getTamaño();
-        System.out.println("ESTIMADO DE CONTADOR " + totalPlanta);
+        // System.out.println("ESTIMADO DE CONTADOR " + totalPlanta);
         nodoPlanta aux = catalogo;
         for (int i = 0; i < totalPlanta; i++) {
 
             TableroBoton.getButton(i, 1).setText(aux.Nombre);
             TableroBoton.getButton(i, 2).setText(String.valueOf(aux.puntos));
             TableroBoton.getButton(i, 3).setText(String.valueOf(aux.ataque));
-            JButton botonModif = new JButton();
-            botonModif.setText("Modificar");
-            TableroBoton.getButton(i, 4).add(botonModif);
+
             if (TableroBoton.getButton(i, 1).getText().equals("DESTROYER")) {
                 TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico1.png")));
-
+                p2 = true;
             } else if (TableroBoton.getButton(i, 1).getText().equals("BUMERAN")) {
                 TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico3.png")));
-
+                p4 = true;
             } else if (TableroBoton.getButton(i, 1).getText().equals("LA MOLE")) {
                 TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico2.png")));
-
+                p1 = true;
             } else if (TableroBoton.getButton(i, 1).getText().equals("DARTH VADER")) {
                 TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico4.png")));
-
+                p3 = true;
             }
 
+            Font font = TableroBoton.getButton(i, 4).getFont();
+            Map attributes = font.getAttributes();
+            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+            TableroBoton.getButton(i, 4).setFont(font.deriveFont(attributes));
+            auxiliar = i;
+            TableroBoton.getButton(i, 4).setText("Modificar");
+
+            TableroBoton.getButton(i, 4).addMouseListener(new MouseAdapter() {
+                int aux = auxiliar;
+
+                public void mouseClicked(MouseEvent e) {
+                    String nom = TableroBoton.getButton(aux, 1).getText();
+
+                    catalogoPlantas menu = new catalogoPlantas(nombreJ, plantas, p1, p2, p3, p4, nom);
+                    menu.setVisible(true);
+
+                    obj.setVisible(false);
+
+                }
+            });
+            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+            TableroBoton.getButton(i, 5).setFont(font.deriveFont(attributes));
+
+            TableroBoton.getButton(i, 5).setText("Eliminar");
+
+            TableroBoton.getButton(i, 5).addMouseListener(new MouseAdapter() {
+                int aux = auxiliar;
+
+                public void mouseClicked(MouseEvent e) {
+                    System.out.println(TableroBoton.getButton(aux, 1).getText());
+                    String nom = TableroBoton.getButton(aux, 1).getText();
+                    System.out.println(nom);
+                    
+                    fun.eliminar(nom,nombreJ,plantas,raiz);
+                    obj.dispose();
+                    
+                    
+
+                }
+            });
             aux = aux.sig;
         }
 
@@ -170,11 +219,10 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == agregarPlanta) {
-            catalogoPlantas menu = new catalogoPlantas(nombreJ, plantas);
+            catalogoPlantas menu = new catalogoPlantas(nombreJ, plantas, p1, p2, p3, p4, null);
             framePlantas frame = new framePlantas(nombreJ, plantas, raiz, catalogo);
             menu.setVisible(true);
             obj.setVisible(false);
-            frame.ocultarVentana();
 
         }
 
