@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -45,9 +46,10 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
     JTextField cantidad;
     JTextField campoextra;
     JLabel error;
+    usuariosMenu obj;
 
-    public panelUsuario() {
-
+    public panelUsuario(usuariosMenu aux) {
+obj = aux;
         initComponents();
     }
 
@@ -61,17 +63,19 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
         zombiesbtn.addActionListener(this);
         zombiesbtn.setText("Jugador Zombies");
         zombiesbtn.setBounds(50, 220, 200, 25);
+        zombiesbtn.setEnabled(false);
 
         iniciarbtn = new JButton();
         iniciarbtn.addActionListener(this);
         iniciarbtn.setText("Siguiente");
         iniciarbtn.setBounds(50, 260, 200, 25);
+        iniciarbtn.setEnabled(false);
 
         resetbtn = new JButton();
         resetbtn.addActionListener(this);
         resetbtn.setText("Eliminar Datos");
         resetbtn.setBounds(50, 300, 200, 25);
-
+        resetbtn.setEnabled(false);
         campo = new JPanel();
 
         campo.setBounds(340, 170, 305, 160);
@@ -160,9 +164,6 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
         super.paintComponent(g);
     }
 
-    Lista raiz = new Lista();
-    Lista jplanta = new Lista();
-
     public boolean keyTyped(KeyEvent ke) {
         char c = ke.getKeyChar();
 
@@ -178,125 +179,100 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
 
     }
 
+    boolean verificador = false;
+    funciones fun = new funciones();
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == aceptarbtn) {
-            if (!(cantidad.getText().equals("")) && !(nombre.getText().equals(""))) {
-                jplanta.addDato(nombre.getText());
-                jplanta.addDato(cantidad.getText());
+            error.setText("");
+            if (verificador == false) {
+                if (!(cantidad.getText().equals("")) && !(nombre.getText().equals(""))) {
+                    String nick = nombre.getText();
+                    int ataque = Integer.parseInt(cantidad.getText());
+                    //estructura de los datos creados
+                    nodo aux = new nodo();
+                    aux.Nombre = nick;
+                    aux.cantidad = ataque;
+                    aux.Tipo = "Planta";
+                    if (!(campoextra.getText().equals(""))) {
+                        int extras = Integer.parseInt(campoextra.getText());
 
-            } else {
-                error.setVisible(true);
-                error.setText("Error en llenar los campos");
-            }
-            if (!(campoextra.getText().equals(""))) {
-                int extras = Integer.parseInt(campoextra.getText());
-                for (int i = 0; i < extras; i++) {
-                    jplanta.addDato("CAMPO EXTRA NO. " + (i+1));
+                        aux.Extra = extras;
 
-                }
-
-            }
-
-            //Adjuntando datos
-            //lista.addDato(nombre.getText());
-            System.out.println("-------Imprimiendo datos-------");
-
-            for (int i = 0; i < jplanta.getTamaño(); i++) {
-                System.out.println(jplanta.getDato(i));
-            }
-        }
-
-    }
-
-    public class Nodo {
-
-        private Object dato;
-        private Nodo nodo;
-
-        public Nodo() {
-            dato = null;
-            Nodo nodo = null;
-        }
-
-        public Nodo(Object dato) {
-            this();
-            this.dato = dato;
-        }
-
-        public void setDato(Object dato) {
-            this.dato = dato;
-        }
-
-        public Object getDato() {
-            return dato;
-        }
-
-        public void setNodo(Nodo nodo) {
-            this.nodo = nodo;
-        }
-
-        public Nodo getNodo() {
-            return nodo;
-        }
-    }
-
-//Autor: Rey Salcedo
-    public class Lista {
-
-        private Nodo cabecera;
-        private int tamaño;
-
-        public Lista() {
-            tamaño = 0;
-            cabecera = new Nodo();
-        }
-
-        public int getTamaño() {
-            return tamaño;
-        }
-
-        public boolean addDato(Object dato) {
-            Nodo nodoUltimo = getUltimoNodo();
-            if (dato != null && nodoUltimo != null) {
-                nodoUltimo.setNodo(new Nodo(dato));
-                tamaño++;
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        private Nodo getUltimoNodo() {
-            Nodo nodoUltimo = null;
-            if (cabecera != null) {
-                nodoUltimo = cabecera;
-                while (nodoUltimo.getNodo() != null) {
-                    nodoUltimo = nodoUltimo.getNodo();
-                }
-            }
-            return nodoUltimo;
-        }
-
-        public Object getDato(int pos) {
-            Nodo nodoUltimo = null;
-            int contador = 0;
-            Object dato = null;
-            if (cabecera != null) {
-                nodoUltimo = cabecera;
-                do {
-                    nodoUltimo = nodoUltimo.getNodo();
-                    if (contador == pos) {
-                        dato = nodoUltimo.getDato();
-                        break;
-                    } else {
-                        contador++;
                     }
-                } while (nodoUltimo.getNodo() != null);
+                    fun.agregarLista(aux);
+                    fun.imprimir();
+                    verificador = true;
+                    reiniciarDatos();
+                    zombiesbtn.setEnabled(true);
+                    plantasbtn.setEnabled(false);
+                } else {
+                    error.setVisible(true);
+                    error.setText("Error en llenar los campos");
+                }
+            } else {
+
+                if (!(cantidad.getText().equals("")) && !(nombre.getText().equals(""))) {
+                    String nick = nombre.getText();
+                    int ataque = Integer.parseInt(cantidad.getText());
+                    //estructura de los datos creados
+                    nodo aux = new nodo();
+                    aux.Nombre = nick;
+                    aux.cantidad = ataque;
+                    aux.Tipo = "Zombie";
+                    if (!(campoextra.getText().equals(""))) {
+                        int extras = Integer.parseInt(campoextra.getText());
+
+                        aux.Extra = extras;
+
+                    }
+                    fun.agregarLista(aux);
+                    fun.imprimir();
+
+                    reiniciarDatos();
+                    campo.setVisible(false);
+                    zombiesbtn.setEnabled(false);
+                    iniciarbtn.setEnabled(true);
+                } else {
+                    error.setVisible(true);
+                    error.setText("Error en llenar los campos");
+                }
             }
-            return dato;
         }
+
+        if (e.getSource() == borrarbtn) {
+            reiniciarDatos();
+        }
+
+        if (e.getSource() == iniciarbtn) {
+            nodo nodoUsuarios = fun.getRaiz();
+            nodo aux = fun.buscar("Planta");
+            String nick = aux.Nombre;
+            int cantidad = aux.cantidad;
+            framePlantas frame = new framePlantas(nick, cantidad,nodoUsuarios,null);
+            obj.setVisible(false);
+            frame.setVisible(true);
+        }
+
+        if (e.getSource() == resetbtn) {
+            reiniciarDatos();
+            zombiesbtn.setEnabled(false);
+            plantasbtn.setEnabled(true);
+//            jplanta.eliminarNodo(0);
+            verificador = false;
+
+            //for (int i = 0; i < jplanta.getTamaño(); i++) {
+            //}
+        }
+
     }
 
-//Autor: Rey Salcedo
+    public void reiniciarDatos() {
+
+        nombre.setText("");
+        cantidad.setText("");
+        campoextra.setText("");
+    }
+
 }

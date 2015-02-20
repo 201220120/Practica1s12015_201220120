@@ -5,6 +5,7 @@
  */
 package codigo;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 /**
@@ -24,14 +26,15 @@ public class PnlFondo extends javax.swing.JPanel implements ActionListener {
 
     private JFrame jFramePadre;
     public JButton iniciar;
-
+    FrmPrincipal obj;
     /**
      * Creates new form PnlFondo
      */
-    public PnlFondo() {
+    public PnlFondo(FrmPrincipal aux) {
         initComponents();
         initComponents2();
         this.setSize(1200, 700);
+        obj = aux;
 
     }
 
@@ -100,7 +103,8 @@ public class PnlFondo extends javax.swing.JPanel implements ActionListener {
 
         this.jFramePadre = jFramePadre;
         this.jFramePadre.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
+        //this.jFramePadre.setLocationRelativeTo(null);
+                
         this.jFramePadre.add(iniciar);
     }
 
@@ -108,6 +112,16 @@ public class PnlFondo extends javax.swing.JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         
     if(e.getSource()==iniciar){
+        usuariosMenu menu = new usuariosMenu();
+
+
+        
+
+        //this.pack();
+        
+        menu.setVisible(true);
+        
+        obj.setVisible(false);
         System.out.println("Iniciar Juego");
     }
     
