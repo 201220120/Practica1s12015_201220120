@@ -94,6 +94,7 @@ public class creacionZombies extends javax.swing.JPanel implements ActionListene
         continuarabtn.setContentAreaFilled(false);
         continuarabtn.setBorderPainted(false);
         continuarabtn.setBounds(662, 532, 137, 33);
+        continuarabtn.addActionListener(this);
     }
     int totalPlanta = 0;
     funcioneZombie fun = new funcioneZombie();
@@ -158,11 +159,9 @@ public class creacionZombies extends javax.swing.JPanel implements ActionListene
                     System.out.println(TableroBoton.getButton(aux, 1).getText());
                     String nom = TableroBoton.getButton(aux, 1).getText();
                     System.out.println(nom);
-                    
-                    fun.eliminar(nom,nombreJ,plantas,raiz);
+
+                    fun.eliminar(nom, nombreJ, plantas, raiz);
                     obj.dispose();
-                    
-                    
 
                 }
             });
@@ -225,7 +224,38 @@ public class creacionZombies extends javax.swing.JPanel implements ActionListene
             obj.setVisible(false);
 
         }
+        if (e.getSource() == continuarabtn) {
+            if ((p1 || p2 || p3 || p4) == true) {
+                String fila = JOptionPane.showInputDialog("Ingrese el alto de la matriz");
+
+                while (!isNumber(fila)) {
+                    System.out.println(fila);
+                    fila = JOptionPane.showInputDialog(null, "Caracter invalido. Ingrese un número");
+                }
+
+                String columna = JOptionPane.showInputDialog("Ingrese el Ancho de la matriz");
+
+                while (!isNumber(columna)) {
+                    System.out.println(columna);
+
+                    columna = JOptionPane.showInputDialog(null, "Caracter invalido. Ingrese un número");
+                }
+                System.out.println("hola");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un tipo de Zombie");
+
+            }
+        }
 
     }
 
+    private static boolean isNumber(String n) {
+        try {
+            Integer.parseInt(n);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 }
