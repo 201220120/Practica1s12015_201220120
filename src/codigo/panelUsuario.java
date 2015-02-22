@@ -182,31 +182,63 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
     boolean verificador = false;
     funciones fun = new funciones();
 
+    private static boolean isNumber(String n) {
+        try {
+            Integer.parseInt(n);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == aceptarbtn) {
             error.setText("");
             if (verificador == false) {
                 if (!(cantidad.getText().equals("")) && !(nombre.getText().equals(""))) {
+
                     String nick = nombre.getText();
-                    int ataque = Integer.parseInt(cantidad.getText());
-                    //estructura de los datos creados
-                    nodo aux = new nodo();
-                    aux.Nombre = nick;
-                    aux.cantidad = ataque;
-                    aux.Tipo = "Planta";
-                    if (!(campoextra.getText().equals(""))) {
-                        int extras = Integer.parseInt(campoextra.getText());
+                    String ataque = cantidad.getText();
+                    if (isNumber(ataque)) {
 
-                        aux.Extra = extras;
+                        nodo aux = new nodo();
+                        aux.Nombre = nick;
+                        aux.cantidad = Integer.parseInt(ataque);
+                        aux.Tipo = "Planta";
+                        if (!(campoextra.getText().equals(""))) {
 
+                            String extras = campoextra.getText();
+                            if (isNumber(extras)) {
+                                aux.Extra = Integer.parseInt(extras);
+                                fun.agregarLista(aux);
+                                fun.imprimir();
+                                verificador = true;
+                                reiniciarDatos();
+                                zombiesbtn.setEnabled(true);
+                                plantasbtn.setEnabled(false);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Caracter invalido. Ingrese un campo extra númerico");
+                                campoextra.setText("");
+                                extras = campoextra.getText();
+
+                            }
+                        } else {
+                            fun.agregarLista(aux);
+                            fun.imprimir();
+                            verificador = true;
+                            reiniciarDatos();
+                            zombiesbtn.setEnabled(true);
+                            plantasbtn.setEnabled(false);
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Caracter invalido. Ingrese una cantidad númerica");
+                        cantidad.setText("");
+                        ataque = cantidad.getText();
                     }
-                    fun.agregarLista(aux);
-                    fun.imprimir();
-                    verificador = true;
-                    reiniciarDatos();
-                    zombiesbtn.setEnabled(true);
-                    plantasbtn.setEnabled(false);
+
+                    //estructura de los datos creados
                 } else {
                     error.setVisible(true);
                     error.setText("Error en llenar los campos");
@@ -215,34 +247,66 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
 
                 if (!(cantidad.getText().equals("")) && !(nombre.getText().equals(""))) {
                     String nick = nombre.getText();
-                    int ataque = Integer.parseInt(cantidad.getText());
-                    //estructura de los datos creados
-                    nodo aux = new nodo();
-                    aux.Nombre = nick;
-                    aux.cantidad = ataque;
-                    aux.Tipo = "Zombie";
-                    if (!(campoextra.getText().equals(""))) {
-                        int extras = Integer.parseInt(campoextra.getText());
 
-                        aux.Extra = extras;
+                    String ataque = cantidad.getText();
+                    if (isNumber(ataque)) {
+                        nodo aux = new nodo();
+                        aux.Nombre = nick;
+                        aux.cantidad = Integer.parseInt(ataque);
+                        aux.Tipo = "Zombie";
+                        if (!(campoextra.getText().equals(""))) {
+                            String extras = campoextra.getText();
+                            if (isNumber(extras)) {
+                                aux.Extra = Integer.parseInt(extras);
+                                fun.agregarLista(aux);
+                                fun.imprimir();
 
+                                reiniciarDatos();
+                                campo.setVisible(false);
+                                zombiesbtn.setEnabled(false);
+                                iniciarbtn.setEnabled(true);
+
+                                //iniciar juego
+                                nodo nodoUsuarios = fun.getRaiz();
+                                nodo aux2 = fun.buscar("Planta");
+                                String nick2 = aux2.Nombre;
+                                int cantidad = aux2.cantidad;
+                                framePlantas frame = new framePlantas(nick2, cantidad, nodoUsuarios, null);
+                                obj.setVisible(false);
+                                frame.setVisible(true);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Caracter invalido. Ingrese una cantidad númerica");
+                                campoextra.setText("");
+                                extras = campoextra.getText();
+
+                            }
+                        } else {
+                            fun.agregarLista(aux);
+                            fun.imprimir();
+
+                            reiniciarDatos();
+                            campo.setVisible(false);
+                            zombiesbtn.setEnabled(false);
+                            iniciarbtn.setEnabled(true);
+
+                            //iniciar juego
+                            nodo nodoUsuarios = fun.getRaiz();
+                            nodo aux2 = fun.buscar("Planta");
+                            String nick2 = aux2.Nombre;
+                            int cantidad = aux2.cantidad;
+                            framePlantas frame = new framePlantas(nick2, cantidad, nodoUsuarios, null);
+                            obj.setVisible(false);
+                            frame.setVisible(true);
+
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Caracter invalido. Ingrese una cantidad númerica");
+                        cantidad.setText("");
+                        ataque = cantidad.getText();
                     }
-                    fun.agregarLista(aux);
-                    fun.imprimir();
 
-                    reiniciarDatos();
-                    campo.setVisible(false);
-                    zombiesbtn.setEnabled(false);
-                    iniciarbtn.setEnabled(true);
-
-                    //iniciar juego
-                    nodo nodoUsuarios = fun.getRaiz();
-                    nodo aux2 = fun.buscar("Planta");
-                    String nick2 = aux2.Nombre;
-                    int cantidad = aux2.cantidad;
-                    framePlantas frame = new framePlantas(nick2, cantidad, nodoUsuarios, null);
-                    obj.setVisible(false);
-                    frame.setVisible(true);
+                    //estructura de los datos creados
                 } else {
                     error.setVisible(true);
                     error.setText("Error en llenar los campos");
@@ -250,12 +314,13 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
             }
         }
 
-        if (e.getSource() == borrarbtn) {
+        if (e.getSource()
+                == borrarbtn) {
             reiniciarDatos();
         }
 
-    
-        if (e.getSource() == resetbtn) {
+        if (e.getSource()
+                == resetbtn) {
             reiniciarDatos();
             zombiesbtn.setEnabled(false);
             plantasbtn.setEnabled(true);

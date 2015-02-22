@@ -47,15 +47,19 @@ public class creacionZombies extends javax.swing.JPanel implements ActionListene
     int plantas;
     nodo raiz;
     nodoZombie catalogo;
+    nodoPlanta catalgoPlanta;
     frameZombies obj;
-
-    public creacionZombies(String nick, int plantas, nodo nodoUsuarios, nodoZombie catalogo, frameZombies aux) {
+funcionePlanta funPlanta = new funcionePlanta();
+funcioneZombie funZombie = new funcioneZombie();
+    funciones fun2 = new funciones();
+    public creacionZombies(String nick, int plantas, nodo nodoUsuarios, nodoZombie catalogo, frameZombies aux,nodoPlanta catalogoPlanta) {
         obj = aux;
         this.raiz = nodoUsuarios;
         this.catalogo = catalogo;
         TableroBoton = new matrizBotones(plantas);
         this.nombreJ = nick;
         this.plantas = plantas;
+        this.catalgoPlanta = catalogoPlanta;
         continuarabtn = new JButton();
         nombre = new JLabel();
         fondoNombre = new JPanel();
@@ -219,7 +223,7 @@ public class creacionZombies extends javax.swing.JPanel implements ActionListene
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == agregarPlanta) {
             catalogoZombies menu = new catalogoZombies(nombreJ, plantas, p1, p2, p3, p4, null);
-            frameZombies frame = new frameZombies(nombreJ, plantas, raiz, catalogo);
+            //frameZombies frame = new frameZombies(nombreJ, plantas, raiz, catalogo);
             menu.setVisible(true);
             obj.setVisible(false);
 
@@ -240,6 +244,12 @@ public class creacionZombies extends javax.swing.JPanel implements ActionListene
 
                     columna = JOptionPane.showInputDialog(null, "Caracter invalido. Ingrese un número");
                 }
+                nodo nodoUsuarios = fun2.getRaiz();
+                
+                tableroPrincipal frame = new tableroPrincipal(nodoUsuarios,catalgoPlanta,catalogo);
+                frame.setVisible(true);
+                obj.setVisible(false);
+                
                 System.out.println("hola");
 
             } else {

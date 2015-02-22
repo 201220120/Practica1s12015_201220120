@@ -233,7 +233,7 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
                 nodo aux2 = fun2.buscar("Zombie");
                 String nick2 = aux2.Nombre;
                 int cantidad = aux2.cantidad;
-                frameZombies frame = new frameZombies(nick2, cantidad, nodoUsuarios, null);
+                frameZombies frame = new frameZombies(nick2, cantidad, nodoUsuarios, null,catalogo);
                 frame.setVisible(true);
                 obj.setVisible(false);
             } else {

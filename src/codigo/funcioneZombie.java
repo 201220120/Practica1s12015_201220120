@@ -12,7 +12,7 @@ package codigo;
 public class funcioneZombie {
 
     private static nodoZombie listaCatalogo;
-
+funcionePlanta funPlant = new funcionePlanta();
     public void agregarLista(nodoZombie elemento) {
         if (listaCatalogo == null) {
             listaCatalogo = new nodoZombie();
@@ -62,7 +62,8 @@ public class funcioneZombie {
                 listaCatalogo = null;
 
             }
-            frameZombies frame = new frameZombies(jugador, numPla, raiz, listaCatalogo);
+            nodoPlanta nodoPlant = funPlant.getRaiz();
+            frameZombies frame = new frameZombies(jugador, numPla, raiz, listaCatalogo,nodoPlant);
             frame.setVisible(true);
             return true;
 
@@ -75,7 +76,8 @@ public class funcioneZombie {
                     if (aux.sig.Nombre == nom) {
                         nodoZombie aux2 = aux.sig;
                         aux.sig = aux2.sig;
-                        frameZombies frame = new frameZombies(jugador, numPla, raiz, listaCatalogo);
+                        nodoPlanta nodoPlant = funPlant.getRaiz();
+                        frameZombies frame = new frameZombies(jugador, numPla, raiz, listaCatalogo,nodoPlant);
                         frame.setVisible(true);
                         return true;
 

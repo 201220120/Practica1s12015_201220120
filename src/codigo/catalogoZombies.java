@@ -12,6 +12,7 @@ package codigo;
 public class catalogoZombies extends javax.swing.JFrame {
 
     funcioneZombie fun = new funcioneZombie();
+    funcionePlanta funPlant = new funcionePlanta();
     funciones fun2 = new funciones();
 
     /**
@@ -174,8 +175,11 @@ public class catalogoZombies extends javax.swing.JFrame {
         }
         nodoZombie nodoCatalogo = fun.getRaiz();
         nodo nodoUsuarios = fun2.getRaiz();
+        
+         nodoPlanta nodoPlant = funPlant.getRaiz();
 
-        frameZombies frame = new frameZombies(nombre, cantidad, nodoUsuarios, nodoCatalogo);
+
+        frameZombies frame = new frameZombies(nombre, cantidad, nodoUsuarios, nodoCatalogo,nodoPlant);
 
         frame.setVisible(true);
         this.setVisible(false);
@@ -200,8 +204,9 @@ public class catalogoZombies extends javax.swing.JFrame {
         }
         nodoZombie nodoCatalogo = fun.getRaiz();
         nodo nodoUsuarios = fun2.getRaiz();
+ nodoPlanta nodoPlant = funPlant.getRaiz();
 
-        frameZombies frame = new frameZombies(nombre, cantidad, nodoUsuarios, nodoCatalogo);
+        frameZombies frame = new frameZombies(nombre, cantidad, nodoUsuarios, nodoCatalogo,nodoPlant);
 
         frame.setVisible(true);
         this.setVisible(false);
@@ -225,8 +230,8 @@ public class catalogoZombies extends javax.swing.JFrame {
         }
         nodoZombie nodoCatalogo = fun.getRaiz();
         nodo nodoUsuarios = fun2.getRaiz();
-
-        frameZombies frame = new frameZombies(nombre, cantidad, nodoUsuarios, nodoCatalogo);
+ nodoPlanta nodoPlant = funPlant.getRaiz();
+        frameZombies frame = new frameZombies(nombre, cantidad, nodoUsuarios, nodoCatalogo,nodoPlant);
 
         frame.setVisible(true);
         this.setVisible(false);        // TODO add your handling code here:
@@ -250,7 +255,8 @@ public class catalogoZombies extends javax.swing.JFrame {
 
         nodoZombie nodoCatalogo = fun.getRaiz();
         nodo nodoUsuarios = fun2.getRaiz();
-        frameZombies frame = new frameZombies(nombre, cantidad, nodoUsuarios, nodoCatalogo);
+         nodoPlanta nodoPlant = funPlant.getRaiz();
+        frameZombies frame = new frameZombies(nombre, cantidad, nodoUsuarios, nodoCatalogo,nodoPlant);
 
         frame.setVisible(true);
         this.setVisible(false);        // TODO add your handling code here:
@@ -260,7 +266,8 @@ public class catalogoZombies extends javax.swing.JFrame {
 
         nodoZombie nodoCatalogo = fun.getRaiz();
         nodo nodoUsuarios = fun2.getRaiz();
-        frameZombies frame = new frameZombies(nombre, cantidad, nodoUsuarios, nodoCatalogo);
+        nodoPlanta nodoPlant = funPlant.getRaiz();
+        frameZombies frame = new frameZombies(nombre, cantidad, nodoUsuarios, nodoCatalogo,nodoPlant);
 
         frame.setVisible(true);
         dispose();

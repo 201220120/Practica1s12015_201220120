@@ -36,15 +36,17 @@ public class frameZombies extends JFrame implements ActionListener {
     int plantas;
     nodo raiz;
     nodoZombie catalogo;
+    nodoPlanta catalogoPlanta;
 
-    public frameZombies(String nombre, int plantas, nodo nodoUsuarios, nodoZombie catalogo) {
+    public frameZombies(String nombre, int plantas, nodo nodoUsuarios, nodoZombie catalogoZombie, nodoPlanta catalogoPlanta) {
         if (this.isEnabled()) {
             this.dispose();
 
         }
         this.raiz = nodoUsuarios;
         this.nick = nombre;
-        this.catalogo = catalogo;
+        this.catalogo = catalogoZombie;
+        this.catalogoPlanta = catalogoPlanta;
         this.plantas = plantas;
 //ImagePanel panel = new ImagePanel(new ImageIcon("/imagenes/creacionjugador.png").getImage());
         setSize(800, 600);
@@ -62,7 +64,7 @@ public class frameZombies extends JFrame implements ActionListener {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {
 
-        creacionZombies p = new creacionZombies(nick, plantas, raiz, catalogo, this);
+        creacionZombies p = new creacionZombies(nick, plantas, raiz, catalogo, this,catalogoPlanta);
         p.setjFramePadre(this);
 
         this.add(p, BorderLayout.CENTER);
@@ -74,7 +76,7 @@ public class frameZombies extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        frameZombies frame = new frameZombies("BRAIAN", 10, null, null);
+        frameZombies frame = new frameZombies("BRAIAN", 10, null, null,null);
         frame.setVisible(true);
     }
 
