@@ -5,15 +5,23 @@
  */
 package codigo;
 
+import static codigo.creacionPlantas.auxiliar;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.border.BevelBorder;
 
 /**
  *
  * @author Braian
  */
-public class tableroPrincipal extends javax.swing.JFrame {
+public class tableroPrincipal extends javax.swing.JFrame implements ActionListener {
 
     /**
      * Creates new form tableroPrincipal
@@ -27,6 +35,7 @@ public class tableroPrincipal extends javax.swing.JFrame {
     int contador2;
     matrizEstrucutas EDDCola;
     matrizEstrucutas EDDPila;
+    funcionePlanta funPlanta = new funcionePlanta();
 
     public tableroPrincipal(nodo nodoUsuarios, nodoPlanta catalogoPlanta, nodoZombie catalogoZombie) {
         this.nodoUsuarios = nodoUsuarios;
@@ -40,22 +49,110 @@ public class tableroPrincipal extends javax.swing.JFrame {
         nJugador2 = usuario.sig.Nombre;
         contador2 = usuario.sig.cantidad;
 
-        EDDCola = new matrizEstrucutas(contador1);
-        EDDPila = new matrizEstrucutas(contador2);
+        EDDPila = new matrizEstrucutas(contador2, this);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         initComponents();
         agregarDatos();
+        agregarPlantaCola.start();
 
         //this.setResizable(false);
         // this.setSize(1200, 700);
     }
     int random;
-public void elegirRamdon(int catagolo){
-random = (int) (Math.random() * catagolo + 1);
+    Cola contenidoCola;
 
+    public nodoPlanta elegirNodoPlanta(int catagolo) {
+        random = (int) (Math.random() * catagolo + 1);
+        System.out.println("NUMERO RANDOM " + random);
+        nodoPlanta aux = catalogoPlanta;
+        nodoPlanta aux2 = new nodoPlanta();
 
+        for (int i = 1; i < random; i++) {
+            System.out.println("AUXXXX " + aux.Nombre);
+            //aux2 = aux;
+            aux = aux.sig;
 
-}
+        }
+
+        aux2 = aux;
+        System.out.println("auxiliar en este momento" + aux2.Nombre);
+
+        return aux2;
+    }
+    int catalogoCantidad = funPlanta.getTamaño();
+
+    public void agregarPlantaCola() {
+        if (contador1 > 0) {
+            System.out.println("CATALOGOCANTIDAD " + catalogoCantidad);
+            nodoPlanta aux = elegirNodoPlanta(catalogoCantidad);
+
+            colaPlanta.insert(aux.Nombre, aux.ataque, aux.puntos);
+
+            //System.out.println("este es el nombre de la planta "+aux.Nombre);
+            contador1--;
+            System.out.println("ESTE CONTADOR TIENE " + contador1);
+
+//        fun.eliminardeCola(aux.Nombre);
+            int i = colaPlanta.getTamaño();
+            System.out.println(i);
+            actualizarPanel(i, colaPlanta);
+
+        }
+
+    }
+
+    public void actualizarPanel(int aux, Cola nombre) {
+
+        System.out.println("nombre que entra " + nombre);
+        System.out.println("auxiliar que va a matriz " + aux);
+        pnlPlantas.removeAll();
+        pnlPlantas.updateUI();
+        pnlPlantas.repaint();
+        EDDCola = new matrizEstrucutas(aux, this);
+        EDDCola.setBounds(15, 20, 150, 400);
+        EDDCola.setBackground(Color.RED);
+        EDDCola.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, null, null, null));
+        System.out.println("el auiliar tiene esto dd" + aux);
+        nodoPlanta nod = nombre.getRaiz();
+        nodoPlanta nombrebase = nod;
+        for (int i = 0; i < aux; i++) {
+            System.out.println("este es el nombre " + nombrebase.Nombre);
+            if (nombrebase.Nombre.equals("LA MOLE")) {
+                EDDCola.getButton(i).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico2.png")));
+                System.out.println("se agrego una imagen" + i + " " + aux);
+            } else if (nombrebase.Nombre.equals("DESTROYER")) {
+                EDDCola.getButton(i).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico1.png")));
+            } else if (nombrebase.Nombre.equals("DARTH VADER")) {
+                EDDCola.getButton(i).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico4.png")));
+            } else if (nombrebase.Nombre.equals("BUMERAN")) {
+                EDDCola.getButton(i).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico3.png")));
+            }
+            nod = nod.sig;
+            nombrebase = nod;
+        }
+
+        EDDCola.getButton(0).addMouseListener(new MouseAdapter() {
+            int aux = auxiliar;
+
+            public void mouseClicked(MouseEvent e) {
+                JOptionPane.showMessageDialog(null, "evento");
+
+            }
+        });
+
+        lblContadorP.setText(String.valueOf(contador1));
+
+        pnlPlantas.add(EDDCola);
+
+        this.pack();
+
+    }
+    int contadorAux = 1;
+
+    nodoColaPlanta nodoColaPlanta = new nodoColaPlanta();
+    Cola colaPlanta = new Cola();
+    funcionePlanta fun = new funcionePlanta();
+
     public void agregarDatos() {
 
         lblNombreP.setText(nJugador1);
@@ -66,15 +163,12 @@ random = (int) (Math.random() * catagolo + 1);
         lblNombreP1.setText(nJugador2);
         lblContadorP1.setText(String.valueOf(contador2));
 
-        EDDCola.setBounds(15, 20, 150, 400);
-        EDDCola.setBackground(Color.RED);
-        EDDCola.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, null, null, null));
-        pnlPlantas.add(EDDCola);
-
         EDDPila.setBounds(15, 20, 150, 400);
         EDDPila.setBackground(Color.RED);
         EDDPila.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, null, null, null));
         pnlZombie.add(EDDPila);
+        
+        
     }
 
     /**
@@ -99,6 +193,7 @@ random = (int) (Math.random() * catagolo + 1);
         txtDisponibleP1 = new javax.swing.JLabel();
         lblContadorP1 = new javax.swing.JLabel();
         pnlZombie = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmenArchivo = new javax.swing.JMenu();
         JmunIteSlr = new javax.swing.JMenuItem();
@@ -160,7 +255,7 @@ random = (int) (Math.random() * catagolo + 1);
         );
         pnlPlantasLayout.setVerticalGroup(
             pnlPlantasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 501, Short.MAX_VALUE)
+            .addGap(0, 448, Short.MAX_VALUE)
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tabPrincipal.png"))); // NOI18N
@@ -225,6 +320,13 @@ random = (int) (Math.random() * catagolo + 1);
             .addGap(0, 501, Short.MAX_VALUE)
         );
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         jmenArchivo.setText("Archivo");
 
         JmunIteSlr.setText("Salir");
@@ -242,9 +344,14 @@ random = (int) (Math.random() * catagolo + 1);
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(53, 53, 53)))
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,20 +371,43 @@ random = (int) (Math.random() * catagolo + 1);
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(pnlDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pnlPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(57, Short.MAX_VALUE))))
+                                .addComponent(pnlPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)
+                                .addGap(12, 12, 12)))
+                        .addContainerGap(93, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        agregarPlantaCola();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    Thread agregarPlantaCola = new Thread() {
+        //declaramos el hilo
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                agregarPlantaCola();
+                agregarPlantaCola.sleep(5000);
+                }
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            
+        }
+    };
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -310,8 +440,10 @@ random = (int) (Math.random() * catagolo + 1);
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem JmunIteSlr;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jmenArchivo;
@@ -328,4 +460,9 @@ random = (int) (Math.random() * catagolo + 1);
     private javax.swing.JLabel txtnombreP;
     private javax.swing.JLabel txtnombreP1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

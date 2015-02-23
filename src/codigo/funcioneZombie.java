@@ -12,7 +12,8 @@ package codigo;
 public class funcioneZombie {
 
     private static nodoZombie listaCatalogo;
-funcionePlanta funPlant = new funcionePlanta();
+    funcionePlanta funPlant = new funcionePlanta();
+
     public void agregarLista(nodoZombie elemento) {
         if (listaCatalogo == null) {
             listaCatalogo = new nodoZombie();
@@ -46,7 +47,6 @@ funcionePlanta funPlant = new funcionePlanta();
         }
         return false;
     }
-    
 
     public boolean eliminar(String nom, String jugador, int numPla, nodo raiz) {
 
@@ -63,7 +63,7 @@ funcionePlanta funPlant = new funcionePlanta();
 
             }
             nodoPlanta nodoPlant = funPlant.getRaiz();
-            frameZombies frame = new frameZombies(jugador, numPla, raiz, listaCatalogo,nodoPlant);
+            frameZombies frame = new frameZombies(jugador, numPla, raiz, listaCatalogo, nodoPlant);
             frame.setVisible(true);
             return true;
 
@@ -77,7 +77,7 @@ funcionePlanta funPlant = new funcionePlanta();
                         nodoZombie aux2 = aux.sig;
                         aux.sig = aux2.sig;
                         nodoPlanta nodoPlant = funPlant.getRaiz();
-                        frameZombies frame = new frameZombies(jugador, numPla, raiz, listaCatalogo,nodoPlant);
+                        frameZombies frame = new frameZombies(jugador, numPla, raiz, listaCatalogo, nodoPlant);
                         frame.setVisible(true);
                         return true;
 

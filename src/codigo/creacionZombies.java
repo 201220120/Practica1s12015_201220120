@@ -49,8 +49,7 @@ public class creacionZombies extends javax.swing.JPanel implements ActionListene
     nodoZombie catalogo;
     nodoPlanta catalgoPlanta;
     frameZombies obj;
-funcionePlanta funPlanta = new funcionePlanta();
-funcioneZombie funZombie = new funcioneZombie();
+
     funciones fun2 = new funciones();
     public creacionZombies(String nick, int plantas, nodo nodoUsuarios, nodoZombie catalogo, frameZombies aux,nodoPlanta catalogoPlanta) {
         obj = aux;

@@ -23,50 +23,51 @@ import javax.swing.border.*;
  */
 public class matrizEstrucutas extends JPanel {
 
-    JLabel MatrizBotones[][];
-    JLabel comprobarDatos[][];
-    int Matriz2[][];
+    JLabel MatrizBotones[];
+    JLabel comprobarDatos[];
+    int Matriz2[];
 
     String fila1;
     String columna1;
     int fila;
     int columna;
-
-    public matrizEstrucutas(int filas) {
+    tableroPrincipal obj;
+    public matrizEstrucutas(int filas,tableroPrincipal obj) {
+        this.obj = obj;
         this.fila = filas;
+        System.out.println("filas tiene "+fila);
         columna = 1;
-        MatrizBotones = new JLabel[fila][columna];
-        Matriz2 = new int[fila][columna];
-        comprobarDatos = new JLabel[fila][columna];
+        MatrizBotones = new JLabel[fila];
+        Matriz2 = new int[fila];
+        comprobarDatos = new JLabel[fila];
 
-        for (int f = 0; f < fila; f++) {
-            for (int c = 0; c < columna; c++) {
+        for (int f = 0; f < fila; f++) {{
                 this.setLayout(new GridLayout(6, 6, 0, 0));
-                MatrizBotones[f][c] = new JLabel(String.valueOf(Matriz2[f][c]));
-                getButton(f, c).setBackground(null);
-                getButton(f, c).setText("Planta");
-                getButton(f, c).setAlignmentX(CENTER_ALIGNMENT);
-                getButton(f, c).setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, null, null, null));
+                MatrizBotones[f] = new JLabel(String.valueOf(Matriz2[f]));
+                getButton(f).setBackground(null);
+                getButton(f).setText("");
+                getButton(f).setAlignmentX(CENTER_ALIGNMENT);
+                getButton(f).setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, null, null, null));
                 //getButton(f, c).setFocusPainted(false);
-                Matriz2[f][c] = 0;
-                if (Matriz2[f][c] != 0) {
+                Matriz2[f] = 0;
+                if (Matriz2[f] != 0) {
                 }
-                this.add(getButton(f, c));
+                this.add(getButton(f));
                 // System.out.println(MatrizBotones[f][c]);
             }
         }
     }
 
-    public JLabel getButton(int fila, int columna) {
-        return MatrizBotones[fila][columna];
+    public JLabel getButton(int fila) {
+        return MatrizBotones[fila];
     }
 
     public void detenerJuego() {
         for (int i = 0; i < fila; i++) {
             for (int j = 0; j < columna; j++) {
-                getButton(i, j).removeMouseListener(null);
-                getButton(i, j).setEnabled(false);
-                getButton(i, j).addMouseListener(new java.awt.event.MouseAdapter() {
+                getButton(i).removeMouseListener(null);
+                getButton(i).setEnabled(false);
+                getButton(i).addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mousePressed(java.awt.event.MouseEvent evt) {
                     }
                 });

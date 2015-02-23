@@ -46,32 +46,51 @@ public class funcionePlanta {
         }
         return false;
     }
-    /*
-     public boolean eliminar(String nom, String jugador, int numPla, nodo raiz) {
-     if (listaCatalogo.Nombre == nom) {
-     listaCatalogo = listaCatalogo.sig;
+public boolean eliminardeCola(String nom) {
+    System.out.println("NOMBRE A ELIMINAR "+nom);
+        nodoPlanta aux = listaCatalogo;
+        if (listaCatalogo.Nombre == nom) {
 
-     } else {
-     try {
-     nodoPlanta aux = listaCatalogo;
-     while (aux.sig != null) {
-     if (aux.sig.Nombre == nom) {
-     nodoPlanta aux2 = aux.sig;
-     aux.sig = aux2.sig;
+            if (aux.sig != null) {
+                nodoPlanta aux2 = listaCatalogo.sig;
+                System.out.println("esto es lo despues " + aux2.Nombre);
+                listaCatalogo = aux2;
+            } else {
 
-     }
-     }
-     aux = aux.sig;
-     } catch (Exception e) {
-     }
+                listaCatalogo = null;
 
-     }
-     framePlantas frame = new framePlantas(jugador, numPla, raiz, listaCatalogo);
-     frame.setVisible(true);
+            }
+          
+            return true;
 
-     return false;
-     }*/
+        } else {
 
+            try {
+
+                while (aux.sig != null) {
+
+                    if (aux.sig.Nombre == nom) {
+                        nodoPlanta aux2 = aux.sig;
+                        aux.sig = aux2.sig;
+                        
+                        return true;
+
+                    } else {
+                        // aux.sig = aux2.sig;
+                    }
+                    aux = aux.sig;
+                }
+                //aux = aux.sig;
+                listaCatalogo = aux;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return false;
+    }
     public boolean eliminar(String nom, String jugador, int numPla, nodo raiz) {
 
         nodoPlanta aux = listaCatalogo;
