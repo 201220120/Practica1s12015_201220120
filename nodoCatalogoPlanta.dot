@@ -1,0 +1,21 @@
+graph G {
+ node [fontsize=10,width=".2", height=".2", margin=0];node [shape=box];
+nodeJugador[ label = "braian"];
+
+nodePlanta0[ label = "Planta1"];
+
+nodePlanta1[ label = "Planta2"];
+
+nodePlanta2[ label = "Planta3"];
+
+"nodeJugador" -- "nodePlanta0";
+
+"nodePlanta0" -> "nodePlanta1";
+
+"nodePlanta1" -> "nodePlanta2";
+
+"nodePlanta0" -- "LA MOLE";
+
+"nodePlanta1" -- "DARTH VADER";
+
+}

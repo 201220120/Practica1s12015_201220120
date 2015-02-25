@@ -5,6 +5,15 @@
  */
 package codigo;
 
+import codigo.catalogoZombies;
+import codigo.elegirTablero;
+import codigo.frameZombies;
+import codigo.funcioneZombie;
+import codigo.funciones;
+import codigo.matrizBotones;
+import codigo.nodo;
+import codigo.nodoPlanta;
+import codigo.nodoZombie;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -51,7 +60,8 @@ public class creacionZombies extends javax.swing.JPanel implements ActionListene
     frameZombies obj;
 
     funciones fun2 = new funciones();
-    public creacionZombies(String nick, int plantas, nodo nodoUsuarios, nodoZombie catalogo, frameZombies aux,nodoPlanta catalogoPlanta) {
+
+    public creacionZombies(String nick, int plantas, nodo nodoUsuarios, nodoZombie catalogo, frameZombies aux, nodoPlanta catalogoPlanta) {
         obj = aux;
         this.raiz = nodoUsuarios;
         this.catalogo = catalogo;
@@ -229,28 +239,33 @@ public class creacionZombies extends javax.swing.JPanel implements ActionListene
         }
         if (e.getSource() == continuarabtn) {
             if ((p1 || p2 || p3 || p4) == true) {
-                String fila = JOptionPane.showInputDialog("Ingrese el alto de la matriz");
-
-                while (!isNumber(fila)) {
-                    System.out.println(fila);
-                    fila = JOptionPane.showInputDialog(null, "Caracter invalido. Ingrese un número");
-                }
-
-                String columna = JOptionPane.showInputDialog("Ingrese el Ancho de la matriz");
-
-                while (!isNumber(columna)) {
-                    System.out.println(columna);
-
-                    columna = JOptionPane.showInputDialog(null, "Caracter invalido. Ingrese un número");
-                }
                 nodo nodoUsuarios = fun2.getRaiz();
-                
-                tableroPrincipal frame = new tableroPrincipal(nodoUsuarios,catalgoPlanta,catalogo);
+                elegirTablero frame = new elegirTablero(nodoUsuarios, catalgoPlanta, catalogo);
                 frame.setVisible(true);
                 obj.setVisible(false);
-                
-                System.out.println("hola");
+                /*
+                 String fila = JOptionPane.showInputDialog("Ingrese el alto de la matriz");
 
+                 while (!isNumber(fila)) {
+                 System.out.println(fila);
+                 fila = JOptionPane.showInputDialog(null, "Caracter invalido. Ingrese un número");
+                 }
+
+                 String columna = JOptionPane.showInputDialog("Ingrese el Ancho de la matriz");
+
+                 while (!isNumber(columna)) {
+                 System.out.println(columna);
+
+                 columna = JOptionPane.showInputDialog(null, "Caracter invalido. Ingrese un número");
+                 }
+                 nodo nodoUsuarios = fun2.getRaiz();
+                
+                 tableroPrincipal frame = new tableroPrincipal(nodoUsuarios,catalgoPlanta,catalogo,fila,columna);
+                 frame.setVisible(true);
+                 obj.setVisible(false);
+                
+                 System.out.println("hola");
+                 */
             } else {
                 JOptionPane.showMessageDialog(null, "Debe ingresar un tipo de Zombie");
 

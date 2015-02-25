@@ -12,6 +12,7 @@ package codigo;
 public class funciones {
 
     private static nodo raiz;
+    int contador;
 
     public void agregarLista(nodo elemento) {
         if (raiz == null) {
@@ -33,18 +34,15 @@ public class funciones {
     return aux;
     }
 
-    public void imprimir() {
+    public int getTamaño() {
 
         nodo aux = raiz;
         while (aux != null) {
-            System.out.println("------imprimir----");
-            System.out.println(aux.Nombre + "   ");
-            System.out.println(aux.cantidad);
-            System.out.println(aux.Extra);
-            System.out.println(aux.Tipo);
+            contador++;
 
             aux = aux.sig;
         }
+        return contador;
 
     }
 

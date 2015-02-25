@@ -15,6 +15,6 @@ public class nodoZombie {
     public int puntos;
     public String ataque;
 
-    public nodoZombie sig;
-
+    public nodoZombie sig=null;
+    
 }

@@ -212,7 +212,7 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
                             if (isNumber(extras)) {
                                 aux.Extra = Integer.parseInt(extras);
                                 fun.agregarLista(aux);
-                                fun.imprimir();
+                                //fun.imprimir();
                                 verificador = true;
                                 reiniciarDatos();
                                 zombiesbtn.setEnabled(true);
@@ -225,7 +225,7 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
                             }
                         } else {
                             fun.agregarLista(aux);
-                            fun.imprimir();
+                            //fun.imprimir();
                             verificador = true;
                             reiniciarDatos();
                             zombiesbtn.setEnabled(true);
@@ -259,7 +259,7 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
                             if (isNumber(extras)) {
                                 aux.Extra = Integer.parseInt(extras);
                                 fun.agregarLista(aux);
-                                fun.imprimir();
+                                //fun.imprimir();
 
                                 reiniciarDatos();
                                 campo.setVisible(false);
@@ -282,7 +282,7 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
                             }
                         } else {
                             fun.agregarLista(aux);
-                            fun.imprimir();
+                            //fun.imprimir();
 
                             reiniciarDatos();
                             campo.setVisible(false);

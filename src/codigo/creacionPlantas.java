@@ -5,6 +5,14 @@
  */
 package codigo;
 
+import codigo.catalogoPlantas;
+import codigo.framePlantas;
+import codigo.frameZombies;
+import codigo.funcionePlanta;
+import codigo.funciones;
+import codigo.matrizBotones;
+import codigo.nodo;
+import codigo.nodoPlanta;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;

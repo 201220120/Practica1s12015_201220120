@@ -1,0 +1,29 @@
+graph G {
+ node [fontsize=10,width=".2", height=".2", margin=0];node [shape=box];
+nodeJugador[ label = "Jugador"];
+
+nodePlanta[ label = "Planta"];
+
+nodeZombie[ label = "Zombie"];
+
+nodePNombre[ label = "braian"];
+
+nodePCantidad[ label = "12"];
+
+"nodeJugador" -- "nodePlanta";
+
+"nodeJugador" -- "nodeZombie";
+
+"nodePlanta" -- "nodePNombre";
+
+"nodePNombre" -- "nodePCantidad";
+
+nodeZNombre[ label = "mario"];
+
+nodeZCantidad[ label = "11"];
+
+"nodeZombie" -- "nodeZNombre";
+
+"nodeZNombre" -- "nodeZCantidad";
+
+}
