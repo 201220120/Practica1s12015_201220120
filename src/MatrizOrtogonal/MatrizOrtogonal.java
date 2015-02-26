@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 /**
  * Esta clase implementa la matriz ortogonal
- * @author zetser
+
  */
 public class MatrizOrtogonal extends JPanel{
 

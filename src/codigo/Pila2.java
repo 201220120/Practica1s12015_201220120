@@ -14,8 +14,23 @@ public class Pila2 {
     nodoZombie cabeza;
     int contador = 0;
 
+    public nodoZombie getRaiz() {
+        nodoZombie aux = cabeza;
+        return aux;
+    }
     public Pila2() {
         this.cabeza = null;
+    }
+    
+    public boolean sacarPila(String nom) {
+        nodoZombie aux1 = cabeza;
+        if(aux1.Nombre==nom){
+        aux1 = aux1.sig;
+        
+        }
+        cabeza = aux1;
+
+        return false;
     }
 
     public Pila2 insertaP(nodoZombie elemento) {

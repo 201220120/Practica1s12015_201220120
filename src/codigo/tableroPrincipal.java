@@ -177,7 +177,17 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
         EDDPila.getButton(0).addMouseListener(new MouseAdapter() {
 
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(null, "evento2");
+                JOptionPane.showMessageDialog(null, "Se ha sacado un elemento de la PILA");
+                 nodoZombie nod = pilaZombieTablero.getRaiz();
+                nodoZombie nombrebase = nod;
+                String nombre = nombrebase.Nombre;
+                System.out.println(nombre);
+                pilaZombieTablero.sacarPila(nombre);
+                 System.out.println("nombre nuevo "+nombrebase.Nombre);
+                int i = pilaZombieTablero.getTamaño();
+                System.out.println("este es el tamañoooooooooo "+i);
+                actualizarPanelZombie(i, pilaZombieTablero);
+                
 
             }
         });
@@ -217,7 +227,7 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
             System.out.println("CATALOGOCANTIDAD " + catalogoCantidad);
             nodoPlanta aux = elegirNodoPlanta(catalogoCantidad);
 
-            colaPlanta.insert(aux.Nombre, aux.ataque, aux.puntos,aux.imagen);
+            colaPlanta.insert(aux.Nombre, aux.ataque, aux.puntos, aux.imagen);
 
             //System.out.println("este es el nombre de la planta "+aux.Nombre);
             contador1--;
@@ -279,8 +289,9 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
     }
     int contadorAux = 1;
 
-    nodoColaPlanta nodoColaPlanta = new nodoColaPlanta();
+
     Cola colaPlanta = new Cola();
+
 
     Pila2 pilaZombieTablero = new Pila2();
 
@@ -299,37 +310,7 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
     }
     private final int BotonesSize = 15;
 
-    public void AccionBoton(java.awt.event.MouseEvent evt) {
-        int size = botones.length;
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (evt.getSource() == botones[i][j]) {
-                    // Hasta aqui identificamos el boton que presionamos
-                    // Ahora debemos identificar con que click se ha presionado el boton
-
-                    // Click Izquierdo
-                    if (evt.getButton() == MouseEvent.BUTTON1) {
-                        if (MatrizEnteros[i][j] == 1 && botones[i][j].getBackground() != Color.orange) {
-                            botones[i][j].setBackground(Color.white);
-                            MatrizEnteros[i][j] = 0;
-                        } else {
-                            if (MatrizEnteros[i][j] == 0 && botones[i][j].getBackground() != Color.orange) {
-                                botones[i][j].setBackground(Color.black);
-                                MatrizEnteros[i][j] = 1;
-                            } else {
-                                if (botones[i][j].getBackground() == Color.red && botones[i][j].getBackground() != Color.orange) {
-                                    botones[i][j].setBackground(Color.black);
-                                    MatrizEnteros[i][j] = 1;
-                                }
-                            }
-                        }
-                    }
-                    return;
-                }
-            }
-        }
-    }
-    /*
+     /*
      private void CrearTablero() {
      pnltablero.removeAll();
      pnltablero.updateUI();

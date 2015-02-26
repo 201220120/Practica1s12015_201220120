@@ -48,6 +48,10 @@ public class Nodo {
      * <H1>CONSTRUCTOR PARA CREAR NUEVOS JUEGOS</H1>
      * @param columna
      * @param fila
+    /**
+     * <H1>CONSTRUCTOR PARA CREAR NUEVOS JUEGOS</H1>
+     * @param columna
+     * @param fila
      */
 
 

@@ -234,29 +234,7 @@ public class creacionZombies extends javax.swing.JPanel implements ActionListene
                 elegirTablero frame = new elegirTablero(nodoUsuarios, catalgoPlanta, catalogo);
                 frame.setVisible(true);
                 obj.setVisible(false);
-                /*
-                 String fila = JOptionPane.showInputDialog("Ingrese el alto de la matriz");
-
-                 while (!isNumber(fila)) {
-                 System.out.println(fila);
-                 fila = JOptionPane.showInputDialog(null, "Caracter invalido. Ingrese un número");
-                 }
-
-                 String columna = JOptionPane.showInputDialog("Ingrese el Ancho de la matriz");
-
-                 while (!isNumber(columna)) {
-                 System.out.println(columna);
-
-                 columna = JOptionPane.showInputDialog(null, "Caracter invalido. Ingrese un número");
-                 }
-                 nodo nodoUsuarios = fun2.getRaiz();
-                
-                 tableroPrincipal frame = new tableroPrincipal(nodoUsuarios,catalgoPlanta,catalogo,fila,columna);
-                 frame.setVisible(true);
-                 obj.setVisible(false);
-                
-                 System.out.println("hola");
-                 */
+               
             } else {
                 JOptionPane.showMessageDialog(null, "Debe ingresar un tipo de Zombie");
 
@@ -265,12 +243,5 @@ public class creacionZombies extends javax.swing.JPanel implements ActionListene
 
     }
 
-    private static boolean isNumber(String n) {
-        try {
-            Integer.parseInt(n);
-            return true;
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-    }
+
 }
