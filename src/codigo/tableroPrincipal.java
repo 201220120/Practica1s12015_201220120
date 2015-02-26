@@ -100,7 +100,7 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
         pnlTablero.updateUI();
         pnlTablero.repaint();
         TableroBoton = new matrizTableroPrincipal(fila, columna);
-        TableroBoton.setBounds(0, 0, 540, 475);
+        TableroBoton.setBounds(0, 0, 540, 495);
         TableroBoton.setBackground(Color.GREEN);
         TableroBoton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, null, null, null));
 
@@ -164,20 +164,12 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
         nodoZombie nod = pilaEntarnte.cabeza;
 
         nodoZombie nombrebase = nod;
-        for (int i = 0; i < aux; i++) {
-            System.out.println("este es el nombre " + nombrebase.Nombre);
+        String url;
 
-            System.out.println("este es el nuevoooo nombreeeeeee " + nombrebase.Nombre);
-            if (nombrebase.Nombre.equals("KRUEGER")) {
-                EDDPila.getButton((i)).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/zo1.png")));
-                //System.out.println("se agrego una imagen" + i + " " + aux);
-            } else if (nombrebase.Nombre.equals("PATIÑO")) {
-                EDDPila.getButton((i)).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/zo2.png")));
-            } else if (nombrebase.Nombre.equals("SEPHIROT")) {
-                EDDPila.getButton((i)).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/zo3.png")));
-            } else if (nombrebase.Nombre.equals("SEVERUS")) {
-                EDDPila.getButton((i)).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/zo4.png")));
-            }
+        for (int i = 0; i < aux; i++) {
+            url = nombrebase.imagen;
+            System.out.println("estring de la imagennnn " + url);
+            EDDPila.getButton((i)).setIcon(new javax.swing.ImageIcon(url));
             nod = nod.sig;
             nombrebase = nod;
         }
@@ -220,11 +212,12 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
     int catalogoCantidadombie = funZombie.getTamaño();
 
     public void agregarPlantaCola() {
+
         if (contador1 > 0) {
             System.out.println("CATALOGOCANTIDAD " + catalogoCantidad);
             nodoPlanta aux = elegirNodoPlanta(catalogoCantidad);
 
-            colaPlanta.insert(aux.Nombre, aux.ataque, aux.puntos);
+            colaPlanta.insert(aux.Nombre, aux.ataque, aux.puntos,aux.imagen);
 
             //System.out.println("este es el nombre de la planta "+aux.Nombre);
             contador1--;
@@ -253,18 +246,12 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
 
         nodoPlanta nod = nombre.getRaiz();
         nodoPlanta nombrebase = nod;
+        String patch;
+
         for (int i = 0; i < aux; i++) {
-            System.out.println("este es el nombre " + nombrebase.Nombre);
-            if (nombrebase.Nombre.equals("LA MOLE")) {
-                EDDCola.getButton(i).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico2.png")));
-                System.out.println("se agrego una imagen" + i + " " + aux);
-            } else if (nombrebase.Nombre.equals("DESTROYER")) {
-                EDDCola.getButton(i).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico1.png")));
-            } else if (nombrebase.Nombre.equals("DARTH VADER")) {
-                EDDCola.getButton(i).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico4.png")));
-            } else if (nombrebase.Nombre.equals("BUMERAN")) {
-                EDDCola.getButton(i).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico3.png")));
-            }
+            patch = nombrebase.imagen;;
+            EDDCola.getButton(i).setIcon(new javax.swing.ImageIcon(patch));
+
             nod = nod.sig;
             nombrebase = nod;
         }
@@ -272,7 +259,13 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
         EDDCola.getButton(0).addMouseListener(new MouseAdapter() {
 
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(null, "evento");
+                JOptionPane.showMessageDialog(null, "Se ha sacado un elemento de la COLA");
+                nodoPlanta nod = colaPlanta.getRaiz();
+                nodoPlanta nombrebase = nod;
+                String nombre = nombrebase.Nombre;
+                colaPlanta.sacarCola(nombre);
+                int i = colaPlanta.getTamaño();
+                actualizarPanel(i, colaPlanta);
 
             }
         });
@@ -288,7 +281,7 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
 
     nodoColaPlanta nodoColaPlanta = new nodoColaPlanta();
     Cola colaPlanta = new Cola();
-   
+
     Pila2 pilaZombieTablero = new Pila2();
 
     funcionePlanta fun = new funcionePlanta();
@@ -420,7 +413,6 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
         txtDisponibleP1 = new javax.swing.JLabel();
         lblContadorP1 = new javax.swing.JLabel();
         pnlZombie = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         pnlTablero = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmenArchivo = new javax.swing.JMenu();
@@ -493,7 +485,7 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
         );
         pnlPlantasLayout.setVerticalGroup(
             pnlPlantasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 448, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         pnlDatos2.setBackground(new java.awt.Color(153, 0, 0));
@@ -552,13 +544,6 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
             pnlZombieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 501, Short.MAX_VALUE)
         );
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         pnlTablero.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -626,11 +611,9 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(pnlDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pnlPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
@@ -647,27 +630,18 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlDatos2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlZombie, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 93, Short.MAX_VALUE))
+                        .addComponent(pnlZombie, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pnlTablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnlPlantas, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
-                        .addGap(24, 24, 24)
-                        .addComponent(jButton1)
-                        .addContainerGap(99, Short.MAX_VALUE))))
+                            .addComponent(pnlPlantas, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE))))
+                .addGap(93, 93, 93))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        CrearTablero();
-        crearTablero();
-
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void rptZombieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rptZombieActionPerformed
         imprimirReporteCatalogoZombie();
@@ -709,13 +683,13 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
 
             fichero.write("nodeJugador[ label = \"" + usuario.sig.Nombre + "\"];\n");
             int tamaño = pilaZombieTablero.getTamaño();
-            
-            JOptionPane.showMessageDialog(null, "Este es el tamaño de la Pila: "+tamaño);
-             nodoZombie nod = pilaZombieTablero.cabeza;
 
-        nodoZombie nodocatalogo = nod;
-    
-            System.out.println("esteee es el enonododo de la pilaaasss "+nodocatalogo.Nombre);
+            JOptionPane.showMessageDialog(null, "Este es el tamaño de la Pila: " + tamaño);
+            nodoZombie nod = pilaZombieTablero.cabeza;
+
+            nodoZombie nodocatalogo = nod;
+
+            System.out.println("esteee es el enonododo de la pilaaasss " + nodocatalogo.Nombre);
             for (int i = 0; i < tamaño; i++) {
                 fichero.write("nodeZombie" + i + "[ label = \"Zombie" + (i + 1) + "\"];\n");
                 fichero.write("catalogoZombie" + i + "[ label = \"" + nodocatalogo.Nombre + "\"];\n");
@@ -725,9 +699,9 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
                 fichero.write("\"nodeZombie" + i + "\" -- \"catalogoZombie" + i + "\";\n");
                 fichero.write("\"catalogoZombie" + i + "\" -- \"catalogoAtaque" + i + "\";\n");
                 fichero.write("\"catalogoAtaque" + i + "\" -- \"catalogoPuntos" + i + "\";\n");
-                System.out.println("esteee es el enonododo de la pilaaa "+nodocatalogo.Nombre);
+                System.out.println("esteee es el enonododo de la pilaaa " + nodocatalogo.Nombre);
                 nodocatalogo = nodocatalogo.sig;
-                
+
             }
             fichero.write("\"nodeJugador\" -- \"nodeZombie0" + "\";\n");
 
@@ -802,7 +776,7 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
             fichero.write("nodeJugador[ label = \"" + usuario.Nombre + "\"];\n");
             int tamaño = colaPlanta.getTamaño();
 
-            JOptionPane.showMessageDialog(null, "Este es el tamaño de la Cola: "+tamaño);
+            JOptionPane.showMessageDialog(null, "Este es el tamaño de la Cola: " + tamaño);
             nodoPlanta nodocatalogo = colaPlanta.getRaiz();
             for (int i = 0; i < tamaño; i++) {
                 fichero.write("nodePlanta" + i + "[ label = \"Planta" + (i + 1) + "\"];\n");
@@ -883,13 +857,6 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
             fichero.write("graph G {" + "\n"
                     + " node [fontsize=10,width=\".2\", height=\".2\", margin=0];"
                     + "node [shape=box];");
-            //pw.println("node0[ label = " + '"' + "#" + '"' + "];" + "\n");
-          /*  for (int i = 0; i < (nodoUsuario.getTamaño()-1); i++) {
-             //System.out.println(ListaNodos.get(i) + " nodo actual...............");
-             pw.println("node" + i + "[ label = " + '"' + usuario.Nombre + '"' + "];" + "\n");
-             usuario = usuario.sig;
-
-             }*/
 
             int tamaño = nodoUsuario.getTamaño();
             System.out.println("este es el tamaño actual del nodo ususario" + tamaño);
@@ -909,8 +876,20 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
             fichero.write("\"nodePlanta\" -- \"nodePNombre\";\n");
             fichero.write("\"nodePNombre\" -- \"nodePCantidad\";\n");
             if (usuario.Extra != 0) {
-                fichero.write("nodePExtra[ label = \"" + usuario.Extra + "\"];\n");
-                fichero.write("\"nodePCantidad\" -- \"nodePExtra\";\n");
+                int extra = usuario.Extra;
+                if (extra == 1) {
+                    fichero.write("nodePExtra1[ label = \"" + "Campo Extra 1" + "\"];\n");
+                    fichero.write("\"nodePCantidad\" -- \"nodePExtra1\";\n");
+
+                } else {
+                    fichero.write("nodePExtra1[ label = \"" + "Campo Extra 1" + "\"];\n");
+                    fichero.write("\"nodePCantidad\" -- \"nodePExtra1\";\n");
+                    for (int i = 0; i < extra; i++) {
+                        fichero.write("nodePExtra" + (i + 2) + "[ label = \"" + "Campo Extra " + (i + 2) + "\"];\n");
+                        fichero.write("\"nodePExtra" + (i + 1) + "\" -- \"nodePExtra" + (i + 2) + "\";\n");
+                    }
+                }
+
             }
             usuario = usuario.sig;
 
@@ -923,8 +902,19 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
             fichero.write("\"nodeZNombre\" -- \"nodeZCantidad\";\n");
 
             if (usuario.Extra != 0) {
-                fichero.write("nodeZExtra[ label = \"" + usuario.Extra + "\"];\n");
-                fichero.write("\"nodeZCantidad\" -- \"nodeZExtra\";\n");
+                int extra = usuario.Extra;
+                if (extra == 1) {
+                    fichero.write("nodeZExtra1[ label = \"" + "Campo Extra 1" + "\"];\n");
+                    fichero.write("\"nodeZCantidad\" -- \"nodeZExtra1\";\n");
+
+                } else {
+                    fichero.write("nodeZExtra1[ label = \"" + "Campo Extra 1" + "\"];\n");
+                    fichero.write("\"nodeZCantidad\" -- \"nodeZExtra1\";\n");
+                    for (int i = 0; i < extra; i++) {
+                        fichero.write("nodeZExtra" + (i + 2) + "[ label = \"" + "Campo Extra " + (i + 2) + "\"];\n");
+                        fichero.write("\"nodeZExtra" + (i + 1) + "\" -- \"nodeZExtra" + (i + 2) + "\";\n");
+                    }
+                }
             }
             fichero.write("}");
 
@@ -1046,7 +1036,6 @@ public class tableroPrincipal extends javax.swing.JFrame implements ActionListen
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem JmunIteSlr;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;

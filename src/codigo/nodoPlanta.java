@@ -14,7 +14,7 @@ public class nodoPlanta {
     public String Nombre;
     public int puntos;
     public String ataque;
-
+    public String imagen;
     public nodoPlanta sig;
 
 }

@@ -14,7 +14,7 @@ public class nodoZombie {
     public String Nombre;
     public int puntos;
     public String ataque;
-
+public String imagen;
     public nodoZombie sig=null;
     
 }

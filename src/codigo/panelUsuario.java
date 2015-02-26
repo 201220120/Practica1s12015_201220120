@@ -75,7 +75,7 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
         resetbtn.addActionListener(this);
         resetbtn.setText("Eliminar Datos");
         resetbtn.setBounds(50, 285, 200, 25);
-        resetbtn.setEnabled(false);
+        resetbtn.setEnabled(true);
         campo = new JPanel();
 
         campo.setBounds(340, 170, 305, 160);
@@ -319,16 +319,14 @@ public class panelUsuario extends javax.swing.JPanel implements ActionListener {
             reiniciarDatos();
         }
 
-        if (e.getSource()
-                == resetbtn) {
+        if (e.getSource() == resetbtn) {
             reiniciarDatos();
+            fun.clear();
             zombiesbtn.setEnabled(false);
             plantasbtn.setEnabled(true);
 //            jplanta.eliminarNodo(0);
             verificador = false;
 
-            //for (int i = 0; i < jplanta.getTamaño(); i++) {
-            //}
         }
 
     }

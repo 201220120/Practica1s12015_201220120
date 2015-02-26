@@ -23,6 +23,7 @@ public class Pila2 {
         nuevo.Nombre = elemento.Nombre;
         nuevo.ataque = elemento.ataque;
         nuevo.puntos = elemento.puntos;
+         nuevo.imagen = elemento.imagen;
 
 // verificar si la pila está vacia
         if (cabeza == null) {

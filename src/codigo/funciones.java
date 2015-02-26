@@ -28,10 +28,10 @@ public class funciones {
 
         }
     }
-    
-    public nodo getRaiz(){
-    nodo aux = raiz;
-    return aux;
+
+    public nodo getRaiz() {
+        nodo aux = raiz;
+        return aux;
     }
 
     public int getTamaño() {
@@ -70,6 +70,13 @@ public class funciones {
             aux = aux.sig;
         }
         return false;
+    }
+
+    public void clear() {
+        while (raiz != null) {
+            raiz = raiz.sig;
+
+        }
     }
 
     public boolean eliminar(int cantidad) {

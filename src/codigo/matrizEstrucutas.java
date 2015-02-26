@@ -32,16 +32,18 @@ public class matrizEstrucutas extends JPanel {
     int fila;
     int columna;
     tableroPrincipal obj;
-    public matrizEstrucutas(int filas,tableroPrincipal obj) {
+
+    public matrizEstrucutas(int filas, tableroPrincipal obj) {
         this.obj = obj;
         this.fila = filas;
-        System.out.println("filas tiene "+fila);
+        System.out.println("filas tiene " + fila);
         columna = 1;
         MatrizBotones = new JLabel[fila];
         Matriz2 = new int[fila];
         comprobarDatos = new JLabel[fila];
 
-        for (int f = 0; f < fila; f++) {{
+        for (int f = 0; f < fila; f++) {
+            {
                 this.setLayout(new GridLayout(6, 6, 0, 0));
                 MatrizBotones[f] = new JLabel(String.valueOf(Matriz2[f]));
                 getButton(f).setBackground(null);

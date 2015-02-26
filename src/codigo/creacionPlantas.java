@@ -5,7 +5,7 @@
  */
 package codigo;
 
-import codigo.catalogoPlantas;
+
 import codigo.framePlantas;
 import codigo.frameZombies;
 import codigo.funcionePlanta;
@@ -121,20 +121,9 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
             TableroBoton.getButton(i, 1).setText(aux.Nombre);
             TableroBoton.getButton(i, 2).setText(String.valueOf(aux.puntos));
             TableroBoton.getButton(i, 3).setText(String.valueOf(aux.ataque));
+            TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(aux.imagen));
+            p1= true;
 
-            if (TableroBoton.getButton(i, 1).getText().equals("DESTROYER")) {
-                TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico1.png")));
-                p2 = true;
-            } else if (TableroBoton.getButton(i, 1).getText().equals("BUMERAN")) {
-                TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico3.png")));
-                p4 = true;
-            } else if (TableroBoton.getButton(i, 1).getText().equals("LA MOLE")) {
-                TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico2.png")));
-                p1 = true;
-            } else if (TableroBoton.getButton(i, 1).getText().equals("DARTH VADER")) {
-                TableroBoton.getButton(i, 0).setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ico4.png")));
-                p3 = true;
-            }
 
             Font font = TableroBoton.getButton(i, 4).getFont();
             Map attributes = font.getAttributes();
@@ -142,14 +131,16 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
             TableroBoton.getButton(i, 4).setFont(font.deriveFont(attributes));
             auxiliar = i;
             TableroBoton.getButton(i, 4).setText("Modificar");
-
+            String ruta = aux.imagen;
+            int puntos = aux.puntos;
+            String tipo = aux.ataque;
             TableroBoton.getButton(i, 4).addMouseListener(new MouseAdapter() {
-                int aux = auxiliar;
+                int aux2 = auxiliar;
 
                 public void mouseClicked(MouseEvent e) {
-                    String nom = TableroBoton.getButton(aux, 1).getText();
+                    String nom = TableroBoton.getButton(aux2, 1).getText();
 
-                    catalogoPlantas menu = new catalogoPlantas(nombreJ, plantas, p1, p2, p3, p4, nom);
+                    ModificarPlanta menu = new ModificarPlanta(ruta, nombreJ, plantas, raiz, catalogo,nom,puntos,tipo);
                     menu.setVisible(true);
 
                     obj.setVisible(false);
@@ -227,7 +218,8 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == agregarPlanta) {
-            catalogoPlantas menu = new catalogoPlantas(nombreJ, plantas, p1, p2, p3, p4, null);
+            agregarPlanta menu = new agregarPlanta("", nombreJ, plantas, raiz, catalogo,"");
+            //catalogoPlantas menu = new catalogoPlantas(nombreJ, plantas, p1, p2, p3, p4, null);
             framePlantas frame = new framePlantas(nombreJ, plantas, raiz, catalogo);
             menu.setVisible(true);
             obj.setVisible(false);
@@ -235,7 +227,7 @@ public class creacionPlantas extends javax.swing.JPanel implements ActionListene
         }
 
         if (e.getSource() == continuarabtn) {
-            if ((p1 || p2 || p3 || p4) == true) {
+            if (p1 == true) {
                 
                 nodo nodoUsuarios = fun2.getRaiz();
                 nodo aux2 = fun2.buscar("Zombie");
